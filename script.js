@@ -1,6 +1,46 @@
+// 방문자 수 (1000부터 시작)
+function updateVisitorCount() {
+  let count = localStorage.getItem('visitorCount');
+  if (count === null) { // localStorage에 값이 없는 경우
+    count = 1000; // 기본값을 1000으로 설정
+  } else {
+    count = parseInt(count) + 1; // 값이 있으면 1 증가
+  }
+  localStorage.setItem('visitorCount', count);
+  document.getElementById('visitor-count').textContent = count;
+}
+
+// 현재 시간 업데이트
+function updateTime() {
+  const now = new Date();
+  const timeString = now.toLocaleTimeString();
+  document.getElementById('time').textContent = timeString;
+}
+
+// 다크 모드 전환
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  document.body.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  this.textContent = isDarkMode ? '라이트 모드' : '다크 모드';
+  localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+});
+
+// 페이지 로드 시 초기 설정
+window.onload = function() {
+  document.getElementById('loading-spinner').style.display = 'none';
+  updateVisitorCount(); // 방문자 수 업데이트
+  updateTime(); // 현재 시간 업데이트
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.getElementById('theme-toggle').textContent = '라이트 모드';
+  }
+};
+
+// 번호 생성 로직
 document.getElementById('generate-btn').addEventListener('click', function() {
   const lottoBallContainer = document.getElementById('lotto-ball-container');
-  lottoBallContainer.innerHTML = ''; // 기존 번호 초기화
+  lottoBallContainer.innerHTML = '';
 
   const numbers = generateLottoNumbers();
   numbers.forEach((number, index) => {
@@ -8,31 +48,27 @@ document.getElementById('generate-btn').addEventListener('click', function() {
     ball.className = 'lotto-ball';
     ball.textContent = number;
 
-    // 번호에 따라 색상 설정
     if (number >= 1 && number <= 10) {
-      ball.style.backgroundColor = '#ffc107'; // 노랑
+      ball.style.backgroundColor = '#ffc107';
     } else if (number >= 11 && number <= 20) {
-      ball.style.backgroundColor = '#2196f3'; // 파랑
+      ball.style.backgroundColor = '#2196f3';
     } else if (number >= 21 && number <= 30) {
-      ball.style.backgroundColor = '#f44336'; // 빨강
+      ball.style.backgroundColor = '#f44336';
     } else if (number >= 31 && number <= 40) {
-      ball.style.backgroundColor = '#9e9e9e'; // 회색
+      ball.style.backgroundColor = '#9e9e9e';
     } else if (number >= 41 && number <= 45) {
-      ball.style.backgroundColor = '#4caf50'; // 초록
+      ball.style.backgroundColor = '#4caf50';
     }
 
-    // 각 볼에 애니메이션 딜레이 추가
     ball.style.animationDelay = `${index * 0.2}s`;
     lottoBallContainer.appendChild(ball);
   });
 
-  // 소리 재생
   const soundEffect = document.getElementById('sound-effect');
   soundEffect.play();
 
-  // 버튼 클릭 시 진동 효과 (모바일에서 동작)
   if (navigator.vibrate) {
-    navigator.vibrate(100); // 100ms 동안 진동
+    navigator.vibrate(100);
   }
 });
 
@@ -47,3 +83,22 @@ function generateLottoNumbers() {
   numbers.sort((a, b) => a - b);
   return numbers;
 }
+
+// 맨 위로 이동 버튼
+window.onscroll = function() {
+  const scrollButton = document.getElementById('scroll-to-top');
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    scrollButton.style.display = 'block';
+  } else {
+    scrollButton.style.display = 'none';
+  }
+};
+
+document.getElementById('scroll-to-top').addEventListener('click', function() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+});
+
+// 1초마다 시간 업데이트
+setInterval(updateTime, 1000);
+updateTime(); // 초기 실행
