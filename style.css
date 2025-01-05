@@ -1,49 +1,58 @@
+/* 기본 스타일 */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
-  color: white;
+  padding: 10px;
 }
 
 .container {
   text-align: center;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 30px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
 }
 
 h1 {
-  font-size: 2.5rem;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 24px;
 }
 
 .lotto-ball-container {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 .lotto-ball {
-  width: 60px;
-  height: 60px;
-  background: radial-gradient(circle, #ff6f61, #ff3b2f);
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 18px;
   font-weight: bold;
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  animation: bounce 0.5s ease-in-out, rotate 2s infinite linear;
+  color: #fff;
+  opacity: 0; /* 초기 상태: 투명 */
+  transform: scale(0); /* 초기 상태: 작은 크기 */
+  animation: fadeIn 0.5s ease-out forwards, bounce 0.5s ease-out 0.5s forwards, rotate 1s ease-out 1s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes bounce {
@@ -56,27 +65,50 @@ h1 {
 }
 
 @keyframes rotate {
-  0% {
+  from {
     transform: rotate(0deg);
   }
-  100% {
+  to {
     transform: rotate(360deg);
   }
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  background: linear-gradient(135deg, #ff6f61, #ff3b2f);
-  color: white;
+#generate-btn {
+  padding: 15px 30px;
+  font-size: 16px;
   border: none;
   border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  transition: transform 0.1s ease;
 }
 
-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+#generate-btn:hover {
+  background-color: #0056b3;
+}
+
+#generate-btn:active {
+  transform: scale(0.95); /* 버튼 클릭 시 작아지는 효과 */
+}
+
+/* 모바일에서 화면이 작을 때 추가 스타일 */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  .lotto-ball {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  #generate-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
 }
