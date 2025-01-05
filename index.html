@@ -33,7 +33,35 @@
 
     <!-- 버튼 그룹 -->
     <button id="generate-btn">번호 생성</button>
+    <button id="save-btn">번호 저장</button>
+    <button id="share-btn">번호 공유</button>
+    <button id="stats-btn">통계 보기</button>
+    <button id="random-name-btn">랜덤 이름 생성</button>
     <button id="theme-toggle">다크 모드</button>
+
+    <!-- 저장된 번호 -->
+    <div id="saved-numbers-container">
+      <h2>저장된 번호</h2>
+      <ul id="saved-numbers-list"></ul>
+    </div>
+
+    <!-- 번호 통계 -->
+    <div id="stats-container">
+      <h2>번호 통계</h2>
+      <div id="stats-content"></div>
+    </div>
+
+    <!-- 랜덤 이름 -->
+    <div id="random-name-container">
+      <h2>랜덤 이름</h2>
+      <p id="random-name"></p>
+    </div>
+
+    <!-- 번호 생성 기록 -->
+    <div id="history-container">
+      <h2>번호 생성 기록</h2>
+      <ul id="history-list"></ul>
+    </div>
 
     <!-- 소리 효과 -->
     <audio id="sound-effect" src="click-sound.mp3"></audio>
@@ -46,3 +74,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+<div class="info-container">
+  <div class="visitor-counter">총 방문자 수: <span id="total-visitors">0</span></div>
+  <div class="current-time">현재 시간: <span id="current-time"></span></div>
+</div>
